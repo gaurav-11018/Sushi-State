@@ -13,8 +13,8 @@ import Link from 'next/link'
 const Sidebar = () => {
   return (
     <main className='text-black h-screen'>
-      <div className='flex my-6 ml-7 mr-4 gap-3'>
-        <div className='pt-2 font-serif text-[1.4rem] mr-3'>SocialFi</div>
+      <div className='flex my-4 ml-7 mr-4 gap-3'>
+        <div className='pt-2 font-bold text-[1.4rem] mr-3'>SocialFi</div>
       </div>
       <div className='mt-6 ml-4 font-sans '>
         <Link href={`/`}>
