@@ -25,7 +25,7 @@ export default async function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang='en'>
+    <html lang='en' suppressHydrationWarning>
       <body className={cx(sfPro.variable, inter.variable)}>
         <main className='flex  flex-row '>
           <div className='flex flex-col w-full'>
