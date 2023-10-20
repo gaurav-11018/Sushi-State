@@ -1,5 +1,4 @@
 'use client'
-
 import useScroll from '@/lib/hooks/use-scroll'
 import { Session } from 'next-auth'
 import Image from 'next/image'
@@ -8,13 +7,22 @@ import { Google } from './icons'
 import Scale3 from './icons/scale3.svg'
 import { useSignInModal } from './sign-in-modal'
 import UserDropdown from './user-dropdown'
+import SidebarOptions from './SidebarOptions'
+import {
+  BellRing,
+  Search,
+  Home,
+  MessageCircle,
+  Wallet2,
+  User2,
+} from 'lucide-react'
 
 export default function NavBar({ session }: { session: Session | null }) {
   const { SignInModal, setShowSignInModal } = useSignInModal()
   const scrolled = useScroll(50)
 
   return (
-    <>
+    <main className='border-b pb-5 border-black border-1'>
       <SignInModal />
       <div
         className={`top-0 w-full flex justify-center ${
@@ -34,6 +42,28 @@ export default function NavBar({ session }: { session: Session | null }) {
             ></Image>
             <p>SocialFI</p>
           </Link>
+
+          <div className='flex flex-row gap-4'>
+            <Link href={`/`}>
+              <SidebarOptions name='Home' icon={<Home />} />
+            </Link>
+            <Link href={`/explore`}>
+              <SidebarOptions name='Explore' icon={<Search />} />
+            </Link>
+            <Link href={`/notifications`}>
+              <SidebarOptions name='Notifications' icon={<BellRing />} />
+            </Link>
+            <Link href={`/messages`}>
+              <SidebarOptions name='Messages' icon={<MessageCircle />} />
+            </Link>
+            <Link href={`/wallet`}>
+              <SidebarOptions name='Wallet' icon={<Wallet2 />} />
+            </Link>
+            <Link href={`/profile`}>
+              <SidebarOptions name='Profile' icon={<User2 />} />
+            </Link>
+          </div>
+
           <div>
             {session ? (
               <UserDropdown session={session} />
@@ -49,6 +79,6 @@ export default function NavBar({ session }: { session: Session | null }) {
           </div>
         </div>
       </div>
-    </>
+    </main>
   )
 }

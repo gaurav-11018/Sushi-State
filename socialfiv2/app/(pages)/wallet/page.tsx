@@ -6,7 +6,7 @@ import { getServerSession } from 'next-auth/next'
 import getAddress from '@/app/api/getAddress/route'
 import { CornerRightDown, CornerRightUp } from 'lucide-react'
 
-type WalletType = {
+export type WalletType = {
   fees: number
   value: number
   token: 'AVAX' | 'SOL' | 'SUI'
@@ -34,7 +34,7 @@ const WalletCard = async ({ token, value, fees, balance }: WalletType) => {
                   {session.user?.name}
                 </p>
                 <div className=' ml-auto text-xl font-bold text-gray-700'>
-                  {balance} {token}
+                  Balance : {balance} {token}
                 </div>
               </div>
               <p
@@ -67,19 +67,40 @@ const WalletCard = async ({ token, value, fees, balance }: WalletType) => {
             </div>
           </div>
         </div>
-        <div className='flex flex-row justify-center gap-[10%]'>
-          <Card className='flex flex-col p-4'>
-            <div className='text-xl font-semibold'>
-              {fees} {token}
+        <div className='border-[1px] border-slate-300 rounded-lg px-3 py-4 flex flex-col gap-2 w-full'>
+          <div className='flex flex-row justify-center gap-[10%]'>
+            <div className='flex flex-col'>
+              <p
+                className='animate-fade-up font-bold  text-gray-500 opacity-0 [text-wrap:balance] md:text-lg'
+                style={{
+                  animationDelay: '0.25s',
+                  animationFillMode: 'forwards',
+                }}
+              >
+                <div className=''>Fees Earned</div>
+              </p>
+              <div className=' ml-auto text-xl font-bold text-gray-700'>
+                {fees}
+                {token}
+              </div>
             </div>
-            <div className='text-gray-500'>Fees Earned</div>
-          </Card>
-          <Card className='flex flex-col p-4'>
-            <div className='text-xl font-semibold'>
-              {value} {token}
+            <div className='flex flex-col'>
+              <p
+                className='animate-fade-up font-bold  text-gray-500 opacity-0 [text-wrap:balance] md:text-lg'
+                style={{
+                  animationDelay: '0.25s',
+                  animationFillMode: 'forwards',
+                }}
+              >
+                <div className=''>Fees Earned</div>
+              </p>
+              <div className='ml-auto text-xl font-bold text-gray-700'>
+                {value}
+                {token}
+              </div>
+              <div className=' ml-auto text-xl font-bold text-gray-700'></div>
             </div>
-            <div className='text-gray-500'>Portfolio Earned</div>
-          </Card>
+          </div>
         </div>
       </div>
     )
