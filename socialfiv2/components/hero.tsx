@@ -1,6 +1,6 @@
 export default function Hero() {
   return (
-    <section className='w-full flex flex-col justify-center align-middle items-center my-5 text-black'>
+    <section className='w-full flex flex-col justify-center align-middle items-center my-8 text-black'>
       <div className='container px-4 md:px-6'>
         <div className='grid gap-6 items-center'>
           <div className='flex flex-col justify-center space-y-8 text-center'>

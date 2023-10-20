@@ -16,8 +16,6 @@ export default async function Home() {
       <div className='z-10 w-full h-2/3  '>
         {session !== null && (
           <div className='flex flex-row '>
-            <Sidebar />
-
             <div className='flex flex-col items-center mx-auto my-10 align-middle'>
               <h1
                 className='animate-fade-up bg-gradient-to-br from-black to-stone-500 bg-clip-text text-center font-display text-xl font-bold tracking-[-0.02em] text-transparent opacity-0 drop-shadow-sm [text-wrap:balance] md:text-4xl md:leading-[5rem] mt-[10%]'
