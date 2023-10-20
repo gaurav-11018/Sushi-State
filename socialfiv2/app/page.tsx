@@ -4,7 +4,7 @@ import { Github } from "@/components/icons";
 import { authOptions } from "@/lib/auth";
 import prisma from "@/lib/prisma";
 import { deriveUserSalt } from "@/lib/salt";
-import { nFormatter } from "@/lib/utils";
+// import { nFormatter } from "@/lib/utils";
 import { jwtToAddress } from "@mysten/zklogin";
 import { getServerSession } from "next-auth/next";
 
@@ -62,7 +62,7 @@ export default async function Home() {
         {session !== null && (
           <>
             <h1
-              className="animate-fade-up bg-gradient-to-br from-black to-stone-500 bg-clip-text text-center font-display text-xl font-bold tracking-[-0.02em] text-transparent opacity-0 drop-shadow-sm [text-wrap:balance] md:text-4xl md:leading-[5rem]"
+              className="animate-fade-up bg-gradient-to-br from-black to-stone-500 bg-clip-text text-center font-display text-xl font-bold tracking-[-0.02em] text-transparent opacity-0 drop-shadow-sm [text-wrap:balance] md:text-4xl md:leading-[5rem] mt-[10%]"
               style={{ animationDelay: "0.15s", animationFillMode: "forwards" }}
             >
               {`Welcome back, ${session?.user?.name}`}
@@ -160,7 +160,7 @@ export default async function Home() {
             <Github />
             <p>
               <span className="hidden sm:inline-block">Star on</span> GitHub{" "}
-              <span className="font-semibold">{nFormatter(stars)}</span>
+              {/* <span className="font-semibold">{nFormatter(stars)}</span> */}
             </p>
           </a>
         </div>
