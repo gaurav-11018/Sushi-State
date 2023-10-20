@@ -1,8 +1,8 @@
-import Nav from "@/components/nav";
-import cx from "classnames";
-import { inter, sfPro } from "./fonts";
-import "./globals.css";
-import Sidebar from "./(sections)/Sidebar";
+import Nav from '@/components/nav'
+import cx from 'classnames'
+import { inter, sfPro } from './fonts'
+import './globals.css'
+import Sidebar from './(sections)/Sidebar'
 
 // export const metadata = {
 //   title: "Scale3 zkLogin - Authentication for your next project on Sui",
@@ -22,14 +22,12 @@ import Sidebar from "./(sections)/Sidebar";
 export default async function RootLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: React.ReactNode
 }) {
   return (
-    <html lang="en">
+    <html lang='en'>
       <body className={cx(sfPro.variable, inter.variable)}>
-
         <main className='flex  flex-row '>
-          <Sidebar />
           <div className='flex flex-col w-full'>
             <Nav />
             {children}
@@ -37,5 +35,5 @@ export default async function RootLayout({
         </main>
       </body>
     </html>
-  );
+  )
 }
