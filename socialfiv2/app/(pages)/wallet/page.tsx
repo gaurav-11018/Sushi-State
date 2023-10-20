@@ -1,6 +1,10 @@
 import React from 'react'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
+import { authOptions } from '@/lib/auth'
+import { getServerSession } from 'next-auth/next'
+import getAddress from '@/app/api/getAddress/route'
+import { CornerRightDown, CornerRightUp } from 'lucide-react'
 
 type WalletType = {
   fees: number
@@ -9,34 +13,76 @@ type WalletType = {
   balance: number
 }
 
-const WalletCard = ({ token, value, fees, balance }: WalletType) => {
-  return (
-    <div className='flex flex-col  align-middle justify-center '>
-      <div className='flex flex-row'>
-        <div>
-          <h1 className='text-xl font-semibold'>Name</h1>
-          <p className='text-gray-500'>@name</p>
-        </div>
+const WalletCard = async ({ token, value, fees, balance }: WalletType) => {
+  const session = await getServerSession(authOptions)
+  const address = await getAddress()
 
-        <div className=' ml-auto text-xl font-semibold'>
-          {balance} {token}
+  return (
+    session && (
+      <div className='flex flex-col  align-middle justify-center '>
+        <div className='flex flex-row'>
+          <div>
+            <div className='border-[1px] border-slate-300 rounded-lg px-3 py-4 flex flex-col gap-2 w-full'>
+              <div className='flex flex-row'>
+                <p
+                  className='animate-fade-up font-bold  text-gray-500 opacity-0 [text-wrap:balance] md:text-lg'
+                  style={{
+                    animationDelay: '0.25s',
+                    animationFillMode: 'forwards',
+                  }}
+                >
+                  {session.user?.name}
+                </p>
+                <div className=' ml-auto text-xl font-bold text-gray-700'>
+                  {balance} {token}
+                </div>
+              </div>
+              <p
+                className='font-mono text-sm text-gray-700 animate-fade-up  opacity-0 [text-wrap:balance]'
+                style={{
+                  animationDelay: '0.25s',
+                  animationFillMode: 'forwards',
+                }}
+              >
+                {session.user?.email}
+              </p>
+              <p
+                className='animate-fade-up font-bold  text-gray-500 opacity-0 [text-wrap:balance] md:text-lg'
+                style={{
+                  animationDelay: '0.25s',
+                  animationFillMode: 'forwards',
+                }}
+              >
+                Your Sui address is:
+              </p>
+              <p
+                className='font-mono text-sm text-gray-700 animate-fade-up  opacity-0 [text-wrap:balance]'
+                style={{
+                  animationDelay: '0.25s',
+                  animationFillMode: 'forwards',
+                }}
+              >
+                {address}
+              </p>
+            </div>
+          </div>
+        </div>
+        <div className='flex flex-row justify-center gap-[10%]'>
+          <Card className='flex flex-col p-4'>
+            <div className='text-xl font-semibold'>
+              {fees} {token}
+            </div>
+            <div className='text-gray-500'>Fees Earned</div>
+          </Card>
+          <Card className='flex flex-col p-4'>
+            <div className='text-xl font-semibold'>
+              {value} {token}
+            </div>
+            <div className='text-gray-500'>Portfolio Earned</div>
+          </Card>
         </div>
       </div>
-      <div className='flex flex-row justify-center gap-[10%]'>
-        <Card className='flex flex-col p-4'>
-          <div className='text-xl font-semibold'>
-            {fees} {token}
-          </div>
-          <div className='text-gray-500'>Fees Earned</div>
-        </Card>
-        <Card className='flex flex-col p-4'>
-          <div className='text-xl font-semibold'>
-            {value} {token}
-          </div>
-          <div className='text-gray-500'>Portfolio Earned</div>
-        </Card>
-      </div>
-    </div>
+    )
   )
 }
 
@@ -48,8 +94,14 @@ const Wallet = () => {
       <div className='w-1/2  border-t border-2 border-black'></div>
 
       <div className='flex flex-row justify-center gap-10'>
-        <Button className=''>Deposit</Button>
-        <Button className=''>Withdraw</Button>
+        <Button className='rounded-full  bg-gray-800 text-white'>
+          <CornerRightUp className='text-white flex flex-col' />
+          <h1>Deposit</h1>
+        </Button>
+        <Button className=' rounded-full bg-gray-800 text-white '>
+          <CornerRightDown className='text-white flex flex-col' />
+          <h1>Withdraw</h1>
+        </Button>
       </div>
     </div>
   )
