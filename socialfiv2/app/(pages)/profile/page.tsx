@@ -12,7 +12,7 @@ const Profile: React.FC = async () => {
           <section className='flex items-center justify-between'>
             <div className='flex items-center'>
               <img
-                className='w-20 h-20 rounded-full mr-4'
+                className='w-20 h-20 rounded-full mr-3'
                 src={`${session?.user?.image}`}
                 alt='Profile'
               />
