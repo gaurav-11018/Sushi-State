@@ -2,12 +2,14 @@
 import React from 'react'
 
 import { Card } from '@/components/ui/card'
+import { getServerSession } from 'next-auth/next'
+import { authOptions } from '@/lib/auth'
 
 export type TweetType = {
   name: string
   email: string
   content: string
-  likes: number
+  likes?: number
   userId?: string | undefined
   timestamp?: Date
 }
@@ -17,9 +19,9 @@ export default async function Tweet({
   email,
   content,
   likes,
-
   timestamp,
 }: TweetType) {
+  const session = await getServerSession(authOptions)
   return (
     <Card
       key='1'
@@ -27,7 +29,12 @@ export default async function Tweet({
     >
       <div className='md:flex'>
         <div className='p-8 w-full'>
-          <div className='flex items-center justify-between'>
+          <div className='flex items-start '>
+            <img
+              className='w-10 h-10 rounded-full mr-4'
+              src={`${session?.user?.image}`}
+              alt='Profile'
+            />
             <div className='flex items-center'>
               <div className='ml-4'>
                 <div className='uppercase tracking-wide text-sm text-black dark:text-white font-semibold'>

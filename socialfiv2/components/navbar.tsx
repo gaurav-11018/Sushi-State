@@ -44,7 +44,7 @@ export default function NavBar({ session }: { session: Session | null }) {
           </Link>
 
           <div className='flex flex-row gap-4'>
-            <Link href={`/`}>
+            <Link href={`/home`}>
               <SidebarOptions name='Home' icon={<Home />} />
             </Link>
             <Link href={`/explore`}>
