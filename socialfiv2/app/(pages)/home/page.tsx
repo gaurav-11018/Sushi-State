@@ -27,7 +27,7 @@ async function getPosts() {
 const Home = async () => {
   const data = await getPosts()
   return (
-    <div className='flex flex-col justify-center items-center border-r-2 border-l-2 border-black'>
+    <div className='flex flex-col justify-center items-center '>
       <TweetForm />
       {data?.map((post) => (
         <Tweet

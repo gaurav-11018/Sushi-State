@@ -23,7 +23,7 @@ export default async function Tweet({
   return (
     <Card
       key='1'
-      className='w-[500px] mx-auto bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden md:max-w-3xl my-8'
+      className='w-[500px] mx-auto bg-white dark:bg-gray-800 shadow-md overflow-hidden md:max-w-3xl my-8'
     >
       <div className='md:flex'>
         <div className='p-8 w-full'>
