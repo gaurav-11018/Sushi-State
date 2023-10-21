@@ -20,7 +20,7 @@ const SignInModal = ({
         <div className='flex flex-col items-center justify-center space-y-3 border-b border-gray-200 bg-white px-4 py-6 pt-8 text-center md:px-16'>
           <a href='https://zklogin.scale3labs.com'>
             <Image
-              src={Scale3}
+              src={`/logo.svg`}
               alt='Logo'
               className='h-10 w-10 rounded-full'
               width={20}
@@ -28,7 +28,10 @@ const SignInModal = ({
             />
           </a>
           <h3 className='font-display text-2xl font-bold'>Sign In</h3>
-          <p className='text-sm text-gray-500'>Seamless integration</p>
+          <p className='text-sm text-gray-500'>
+            A smooth transition for traditional web users into the realm of
+            web3.
+          </p>
         </div>
 
         <div className='flex flex-col space-y-4 bg-gray-50 px-4 py-8 md:px-16'>

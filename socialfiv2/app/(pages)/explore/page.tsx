@@ -25,7 +25,7 @@ const explore = async () => {
           <div className='p-4'>
             <h2 className='text-xl font-semibold text-gray-800'>{user.name}</h2>
             <div className='mt-2'>
-              <a href={`#`} className='text-sm text-indigo-500 hover:underline'>
+              <a className='text-sm text-indigo-500 hover:underline cursor-pointer'>
                 View Profile
               </a>
             </div>
