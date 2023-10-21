@@ -11,13 +11,14 @@ const ProfileData: React.FC = () => {
 
   const name = session?.user?.name
   const email = session?.user?.email
+  const imageUrl = session?.user?.image
 
   return (
     <section className='flex items-center justify-between mb-6'>
       <div className='flex items-center'>
         <img
           className='w-20 h-20 rounded-full mr-4'
-          src='https://github.com/shadcn.png'
+          src={`${imageUrl}`}
           alt='Profile'
         />
         <div>

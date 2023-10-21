@@ -5,6 +5,7 @@ import { authOptions } from '@/lib/auth'
 import { getServerSession } from 'next-auth/next'
 import getAddress from '@/app/api/getAddress/route'
 import { CornerRightDown, CornerRightUp } from 'lucide-react'
+import { getActiveNetworkSuiClient } from '@/lib/sui'
 
 export type WalletType = {
   fees: number
@@ -17,6 +18,14 @@ const WalletCard = async ({ token, value, fees, balance }: WalletType) => {
   const session = await getServerSession(authOptions)
   const address = await getAddress()
 
+  const client = await getActiveNetworkSuiClient()
+  const blnc = await client.getBalance({
+    owner: address!,
+  })
+
+  // const balance = client.getBalance({
+  //   owner: address,
+  // })
   return (
     session && (
       <div className='flex flex-col  align-middle justify-center '>
@@ -33,9 +42,9 @@ const WalletCard = async ({ token, value, fees, balance }: WalletType) => {
                 >
                   {session.user?.name}
                 </p>
-                <div className=' ml-auto text-xl font-bold text-gray-700'>
-                  Balance : {balance} {token}
-                </div>
+                <p className=' ml-auto text-xl font-bold text-gray-700'>
+                  Balance : {blnc.totalBalance} {token}
+                </p>
               </div>
               <p
                 className='font-mono text-sm text-gray-700 animate-fade-up  opacity-0 [text-wrap:balance]'
@@ -77,11 +86,10 @@ const WalletCard = async ({ token, value, fees, balance }: WalletType) => {
                   animationFillMode: 'forwards',
                 }}
               >
-                <div className=''>Fees Earned</div>
+                <p className=''>Fees Earned</p>
               </p>
               <div className=' ml-auto text-xl font-bold text-gray-700'>
-                {fees}
-                {token}
+                {`${fees} ${token}`}
               </div>
             </div>
             <div className='flex flex-col'>
@@ -92,11 +100,10 @@ const WalletCard = async ({ token, value, fees, balance }: WalletType) => {
                   animationFillMode: 'forwards',
                 }}
               >
-                <div className=''>Fees Earned</div>
+                <p className=''>Portfolio Value</p>
               </p>
               <div className='ml-auto text-xl font-bold text-gray-700'>
-                {value}
-                {token}
+                {`${blnc.totalBalance} ${token}`}
               </div>
               <div className=' ml-auto text-xl font-bold text-gray-700'></div>
             </div>
@@ -110,7 +117,7 @@ const WalletCard = async ({ token, value, fees, balance }: WalletType) => {
 const Wallet = () => {
   return (
     <div className='flex flex-col mt-[5%] gap-6 items-center h-screen '>
-      <WalletCard fees={100} value={200} token='AVAX' balance={500} />
+      <WalletCard fees={100} value={200} token='SUI' balance={500} />
 
       <div className='w-1/2  border-t border-2 border-black'></div>
 
