@@ -1,14 +1,15 @@
 import {
   Ed25519Keypair,
   JsonRpcProvider,
-  mainnetConnection,
   RawSigner,
   TransactionBlock,
-} from '@mysten/sui.js'
-import fs from 'fs'
+  testnetConnection,
+} from "@mysten/sui.js";
+
+import fs from "fs";
 
 function sleep(ms: number): Promise<void> {
-  return new Promise((resolve) => setTimeout(resolve, ms))
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 async function transferSui(
@@ -17,56 +18,54 @@ async function transferSui(
   amount: number
 ) {
   try {
-    const provider = new JsonRpcProvider(mainnetConnection)
-    const privateKeyUint8Array = new Uint8Array(Buffer.from(privateKey, 'hex'))
-    const keypair = Ed25519Keypair.fromSecretKey(privateKeyUint8Array)
+    const provider = new JsonRpcProvider(testnetConnection);
+    const privateKeyUint8Array = new Uint8Array(Buffer.from(privateKey, "hex"));
+    const keypair = Ed25519Keypair.fromSecretKey(privateKeyUint8Array);
 
-    const signer = new RawSigner(keypair, provider)
-    const address = await signer.getAddress()
-    const tx = new TransactionBlock()
-    const [coin] = tx.splitCoins(tx.gas, [tx.pure(amount)])
-    console.log(coin)
-    tx.transferObjects([coin], tx.pure(addressTo))
+    const signer = new RawSigner(keypair, provider);
+    const address = await signer.getAddress();
+    const tx = new TransactionBlock();
+    const [coin] = tx.splitCoins(tx.gas, [tx.pure(amount)]);
+    console.log(coin);
+    tx.transferObjects([coin], tx.pure(addressTo));
     const result = await signer.signAndExecuteTransactionBlock({
       transactionBlock: tx,
-    })
-    console.log({ result })
-    console.log(`从${address} 转到 ${addressTo}  金额 ${amount}  成功`)
+    });
+    console.log({ result });
+    console.log(`from ${address} to ${addressTo}  with ${amount}  sui`);
   } catch (e) {
-    console.error(e)
+    console.error(e);
   }
 }
 async function getSuiBalance(address: string) {
-  const provider = new JsonRpcProvider(mainnetConnection)
+  const provider = new JsonRpcProvider(testnetConnection);
   const balance = await provider.getBalance({
     owner: address,
-  })
-  console.log(balance)
-  return Number(balance['totalBalance'])
+  });
+  console.log(balance);
+  return Number(balance["totalBalance"]);
 }
 
-async function batchTransferSui() {
+export default async function batchTransferSui() {
   const suiAccounts = JSON.parse(
-    fs.readFileSync('constants/sui-addresses.json', 'utf-8')
-  )
-  let i = 0
+    fs.readFileSync("constants/sui-addresses.json", "utf-8")
+  );
+  let i = 0;
   while (i < suiAccounts.length) {
-    const privateKey = suiAccounts[i]['privateKey']
-    const address = suiAccounts[i]['address']
-    const toAddress = suiAccounts[i]['toAddress']
-    const balance = await getSuiBalance(address)
-    const gas = 4000000
-    const amount = balance - gas
+    const privateKey = suiAccounts[i]["privateKey"];
+    const address = suiAccounts[i]["address"];
+    const toAddress = suiAccounts[i]["toAddress"];
+    const balance = await getSuiBalance(address);
+    const gas = 4000000;
+    const amount = balance - gas;
     if (amount > 0) {
-      await transferSui(privateKey, toAddress, amount - gas)
+      await transferSui(privateKey, toAddress, amount - gas);
     } else {
-      console.log(`${address} 余额小于Gas`)
+      console.log(`${address}`);
     }
-    i++
-    await sleep(1000)
+    i++;
+    await sleep(1000);
   }
-
-  console.log('hiransfer sui')
 }
 
 // async function main() {
@@ -84,7 +83,7 @@ async function batchTransferSui() {
 //     amount - gas
 //   );
 // }
-batchTransferSui()
+batchTransferSui();
 // getSuiBalance(
 //   ""
 // );
