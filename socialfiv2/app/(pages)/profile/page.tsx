@@ -1,68 +1,118 @@
+'use client'
+
+import React, { useState } from 'react'
+
+import { SessionProvider } from 'next-auth/react'
 /* eslint-disable @next/next/no-img-element */
-import { Card } from '@/components/ui/card'
-import Head from 'next/head'
-import { getServerSession } from 'next-auth/next'
-import { authOptions } from '@/lib/auth'
-const Profile: React.FC = async () => {
-  const session = await getServerSession(authOptions)
+import { useSession } from 'next-auth/react'
+
+const ProfileData: React.FC = () => {
+  const { data: session } = useSession()
+
+  const name = session?.user?.name
+  const email = session?.user?.email
+
   return (
-    <div>
-      <div className='container mx-auto px-4 py-10'>
-        <main className='mt-10'>
-          <section className='flex items-center justify-between'>
-            <div className='flex items-center'>
-              <img
-                className='w-20 h-20 rounded-full mr-3'
-                src={`${session?.user?.image}`}
-                alt='Profile'
-              />
-              <div>
-                <h2 className='text-lg font-bold'>{session?.user?.name}</h2>
-                <p>{session?.user?.email}</p>
-              </div>
-            </div>
+    <section className='flex items-center justify-between mb-6'>
+      <div className='flex items-center'>
+        <img
+          className='w-20 h-20 rounded-full mr-4'
+          src='https://github.com/shadcn.png'
+          alt='Profile'
+        />
+        <div>
+          <h2 className='text-lg font-bold'>{name}</h2>
+          <p>{email}</p>
+        </div>
+      </div>
+    </section>
+  )
+}
 
-            <div className='flex items-center justify-between'>
-              <div className='text-center px-4'>
-                <h4 className='text-sm'>0.006 AVAX</h4>
-                <p>Ticket Price</p>
-              </div>
-              <button className='bg-blue-700 text-white px-4 py-2 rounded'>
-                Buy
-              </button>
-            </div>
-          </section>
+const Profile: React.FC = () => {
+  const [showModal, setShowModal] = useState(false)
+  const [modalType, setModalType] = useState('')
 
-          <section className='mt-6'>
-            <div className='flex items-center justify-between bg-pink-400 p-4 rounded-lg'>
-              <div className='flex items-center justify-between space-x-4'>
-                <div className='text-center'>
-                  <h3 className='text-lg font-bold'>0</h3>
-                  <p>Followers</p>
-                </div>
-                <div className='text-center'>
-                  <h3 className='text-lg font-bold'>2</h3>
-                  <p>Following</p>
-                </div>
-                <div className='text-center'>
-                  <h3 className='text-lg font-bold'>261</h3>
-                  <p>Followers</p>
-                </div>
-              </div>
-            </div>
-          </section>
+  return (
+    <div className='container mx-auto px-4 py-10'>
+      <main className='mt-10'>
+        <SessionProvider>
+          <ProfileData />
+        </SessionProvider>
 
-          <div className='flex flex-row justify-center gap-[10%]'>
-            <Card className='flex flex-col p-4'>
-              <div className='text-xl font-semibold'>Followers</div>
-              <div className='text-gray-500'>Followers</div>
-            </Card>
-            <Card className='flex flex-col p-4'>
-              <div className='text-xl font-semibold'>Holders</div>
-              <div className='text-gray-500'>Volume</div>
-            </Card>
+        <section className='mb-6 flex items-center justify-around bg-blue-100 p-4 rounded-lg'>
+          <div className='text-center'>
+            <h3 className='text-lg font-bold'>2</h3>
+            <p>Following</p>
           </div>
-        </main>
+          <div className='text-center'>
+            <h3 className='text-lg font-bold'>261</h3>
+            <p>Followers</p>
+          </div>
+          <div className='text-center'>
+            <h3 className='text-lg font-bold'>23,456</h3>
+            <p>Volume</p>
+          </div>
+          <div className='text-center'>
+            <h3 className='text-lg font-bold'>789</h3>
+            <p>Holders</p>
+          </div>
+        </section>
+
+        <section className='mb-6 flex justify-center space-x-4'>
+          <button
+            className='bg-blue-700 text-white px-4 py-2 rounded'
+            onClick={() => {
+              setModalType('buy')
+              setShowModal(true)
+            }}
+          >
+            Buy
+          </button>
+          <button
+            className='bg-blue-700 text-white px-4 py-2 rounded'
+            onClick={() => {
+              setModalType('sell')
+              setShowModal(true)
+            }}
+          >
+            Sell
+          </button>
+        </section>
+      </main>
+      {showModal && (
+        <TradeModal type={modalType} onClose={() => setShowModal(false)} />
+      )}
+    </div>
+  )
+}
+
+const TradeModal: React.FC<{ type: string; onClose: () => void }> = ({
+  type,
+  onClose,
+}) => {
+  return (
+    <div className='fixed inset-0 flex items-center justify-center z-50'>
+      <div
+        className='absolute inset-0 bg-black opacity-10'
+        onClick={onClose}
+      ></div>
+      <div className='bg-black w-1/2 rounded-lg p-6'>
+        <h2 className='text-white text-xl font-bold mb-4'>Trade Tickets</h2>
+        <div className='flex items-center justify-between mb-4'>
+          <button className='bg-red-500 text-white py-2 px-6 rounded-full'>
+            {type === 'buy' ? 'Buy Ticket' : 'Sell Ticket'}
+          </button>
+          <span className='text-white'>
+            {type === 'buy' ? '43.3822 AVAX' : '35.0438 AVAX'}
+          </span>
+        </div>
+        <button
+          className='bg-white text-black py-1 px-4 rounded-full'
+          onClick={onClose}
+        >
+          Close
+        </button>
       </div>
     </div>
   )
