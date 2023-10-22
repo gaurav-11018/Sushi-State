@@ -19,7 +19,10 @@ Sushi State heralds a new era of user-centric onboarding by ingeniously integrat
 Sushi State goes beyond the one-dimensional social interactions of traditional platforms by introducing a multi-faceted financial marketplace. Creators are allocated shares for their content, turning their creativity into tradable assets. On the flip side, users can buy, hold, or sell these shares based on a dynamic trading algorithm, akin to the experience on trading platforms like CoinDCX. This disruptive model metamorphoses social engagement into a financially rewarding venture, aligning the interests of creators, traders, and casual users.
 
 ### 3. Trading creator's shares with SUI tokens:
-Sushi State aims to create value for the users as well as the creators on the platform. The platform lets people buy and trade shares of any user of the same using their non-custodial SUI wallet and transactions in terms of SUI tokens. This will help a very large number of people onboard the network at once.
+Sushi State strives to enhance the value for both users and creators. Our platform enables seamless trading of shares in any user's portfolio using non-custodial SUI wallets and transactions in SUI tokens. This inclusive approach rapidly onboards a vast network of participants.
+
+### 4. Exclusive community access with creator's shares
+Users who acquire a creator's shares will be seamlessly ushered into an exclusive gated community within the Sushi State platform. This dedicated space serves as a hub for members to engage, exchange ideas, and delve into diverse topics. Creators actively participate, fostering connections by providing special discounts on their offerings, organizing exclusive meetups, and offering various perks to their dedicated followers.
 
 ## Technical Fortitude and Business Acumen 🎯
 ### - Robust Trading Algorithm:
