@@ -1,5 +1,5 @@
 # Sushi-State
-#### Stars Arena on SUI
+#### Stars Arena on SUI [socialfiv2](/socialfiv2/)
 
 ## Problem Statement
 
