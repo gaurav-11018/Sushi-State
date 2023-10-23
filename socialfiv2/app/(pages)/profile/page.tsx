@@ -3,6 +3,7 @@
 import React, { useState } from 'react'
 
 import { SessionProvider } from 'next-auth/react'
+// import { batchTransferSui } from '@utils/src/transfer-sui.ts'
 /* eslint-disable @next/next/no-img-element */
 import { useSession } from 'next-auth/react'
 
@@ -61,15 +62,17 @@ const Profile: React.FC = () => {
         </section>
 
         <section className='mb-6 flex justify-center space-x-4'>
-          <button
-            className='bg-blue-700 text-white px-4 py-2 rounded'
-            onClick={() => {
-              setModalType('buy')
-              setShowModal(true)
-            }}
-          >
-            Buy
-          </button>
+        <button
+  className='bg-blue-700 text-white px-4 py-2 rounded'
+  onClick={async () => {
+    setModalType('buy');
+    setShowModal(true);
+    // await batchTransferSui();
+  }}
+>
+  Buy
+</button>
+
           <button
             className='bg-blue-700 text-white px-4 py-2 rounded'
             onClick={() => {
